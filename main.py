@@ -1,12 +1,30 @@
 import pygame
 from constants import *
 from player import Player
+from asteroid import Asteroid
+from asteroidfield import AsteroidField
 
 def main():
     pygame.init()
     screen = pygame.display.set_mode( (SCREEN_WIDTH, SCREEN_HEIGHT) )
     clock = pygame.time.Clock()
+
+    # bucket(groups) that holds things that need to be updated every frame (moving, rotating,)
+    updateable = pygame.sprite.Group()
+    # bucket(group) that holds things that need to be drawn every frame (player, asteroids)
+    drawable = pygame.sprite.Group()
+    # group which will contain all the asteroids
+    asteroids = pygame.sprite.Group()
+
+    # defined before player initialization so that player obj automatically gets put into groups
+    Player.containers = (updateable, drawable)
+    # set containers field of Asteroid class to groups: asteroids, updateable, drawable
+    Asteroid.containers = (asteroids, updateable, drawable)
+    AsteroidField.containers = (updateable)
+
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    asteroid_field = AsteroidField()
+
     dt = 0
 
     while True:
@@ -15,14 +33,18 @@ def main():
             if event.type == pygame.QUIT:
                 return
         
-        # update game objects
-        player.update(dt)
+        # updates every obj in updatable group
+        updateable.update(dt)
 
         # draw everythhing
         # first fill screen, then draw 
         # and then flip(update screen with what you've drawn)
         screen.fill("black")  
-        player.draw(screen)
+        
+        # 
+        for obj in drawable:
+            obj.draw(screen)
+
         pygame.display.flip()
 
         # control frame rate
