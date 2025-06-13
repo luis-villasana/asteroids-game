@@ -14,6 +14,7 @@ def main():
             if event.type == pygame.QUIT:
                 return
         
+        player.update(dt)
         # first fill screen, then draw 
         # and then flip(update screen with what you've drawn)
         screen.fill("black")  
