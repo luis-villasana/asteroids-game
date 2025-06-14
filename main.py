@@ -10,6 +10,7 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode( (SCREEN_WIDTH, SCREEN_HEIGHT) )
     clock = pygame.time.Clock()
+    font = pygame.font.Font(None, 36)
 
     # bucket(groups) that holds things that need to be updated every frame (moving, rotating,)
     updateable = pygame.sprite.Group()
@@ -30,6 +31,7 @@ def main():
     asteroid_field = AsteroidField()
 
     dt = 0
+    score = 0
 
     while True:
         # handle events
@@ -39,7 +41,6 @@ def main():
         
         # updates every obj in updatable group
         updateable.update(dt)
-
         for asteroid in asteroids:
             # collision check between asteroid and player
             if asteroid.collides_with(player):
@@ -49,12 +50,18 @@ def main():
             for shot in shots:
                 if asteroid.collides_with(shot):
                     shot.kill()
-                    asteroid.split()
+                    points = asteroid.split()
+                    
+                    if points:
+                        score += points
 
         # draw everythhing
         # first fill screen, then draw 
         # and then flip(update screen with what you've drawn)
-        screen.fill("black")          
+        screen.fill("black") 
+
+        score_surf = font.render(f"Score: {score}", True, "white")         
+        screen.blit(score_surf, (10, 10))
 
         for obj in drawable:
             obj.draw(screen)
