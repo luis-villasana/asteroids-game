@@ -41,9 +41,15 @@ def main():
         updateable.update(dt)
 
         for asteroid in asteroids:
+            # collision check between asteroid and player
             if asteroid.collides_with(player):
                 print("Game Over!")
                 sys.exit()
+            # collision check between asteroid and bullets
+            for shot in shots:
+                if asteroid.collides_with(shot):
+                    shot.kill()
+                    asteroid.kill()
 
         # draw everythhing
         # first fill screen, then draw 
