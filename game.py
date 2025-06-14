@@ -12,8 +12,11 @@ class Game():
         self.screen = pygame.display.set_mode( (SCREEN_WIDTH, SCREEN_HEIGHT) )
         self.clock = pygame.time.Clock()
         self.font = pygame.font.Font(None, 36)
+        pygame.mixer.init()
         self.game_over = False
         self.score = 0
+
+        self.explosion_sound = pygame.mixer.Sound("assets/sounds/explosionCrunch_000.ogg")
 
         self.updateable = pygame.sprite.Group()
         self.drawable = pygame.sprite.Group()
@@ -64,6 +67,7 @@ class Game():
             for shot in self.shots:
                 if asteroid.collides_with(shot):
                     shot.kill()
+                    self.explosion_sound.play()
                     points = asteroid.split()                    
                     if points:
                         self.score += points
