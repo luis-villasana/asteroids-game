@@ -56,7 +56,7 @@ Destroy all the asteroids! If you get hit, press any key to restart.
 
 ## 🔊 Sound Assets
 
-Sound effects (`laserSmall_000.ogg`, `explosionCrunch_000.ogg`) come from [Kenney.nl's Sci-fi Sounds Pack](https://kenney.nl/assets/sci-fi-sounds), which is licensed **CC0 (public domain)** — you're free to use and distribute them.
+Sound effects (`laserSmall_000.ogg`, `explosionCrunch_000.ogg`) come from [Kenney.nl's Sci-fi Sounds Pack](https://kenney.nl/assets/sci-fi-sounds), which is licensed **CC0 (public domain)**
 
 ---
 
